@@ -1,6 +1,5 @@
-﻿using API.Interfaces;
+﻿using Infrastructure.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

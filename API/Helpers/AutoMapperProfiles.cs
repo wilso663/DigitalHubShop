@@ -1,5 +1,5 @@
-﻿using API.DTOs;
-using API.Models;
+﻿using Infrastructure.DTOs;
+using Core.Models;
 using AutoMapper;
 
 namespace API.Helpers

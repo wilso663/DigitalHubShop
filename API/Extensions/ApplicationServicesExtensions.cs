@@ -1,5 +1,5 @@
-﻿using API.Data;
-using API.Interfaces;
+﻿using Infrastructure.Data;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions
@@ -8,7 +8,7 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<DataContext>(option =>
+            services.AddDbContext<StoreContext>(option =>
             {
                 option.UseSqlServer(config.GetConnectionString("DigitHubShopDBConnection"));
             });

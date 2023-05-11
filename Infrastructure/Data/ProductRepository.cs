@@ -1,17 +1,16 @@
-﻿using API.DTOs;
-using API.Interfaces;
-using API.Models;
+﻿using Infrastructure.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using Core.Models;
 
-namespace API.Data
+namespace Infrastructure.Data
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly DataContext _context;
+        private readonly StoreContext _context;
         private readonly IMapper _mapper;
-        public ProductRepository(DataContext context, IMapper mapper) 
+        public ProductRepository(StoreContext context, IMapper mapper) 
         { 
             this._context = context;
             this._mapper = mapper;

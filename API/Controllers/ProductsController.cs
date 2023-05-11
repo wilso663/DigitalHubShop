@@ -1,6 +1,7 @@
-﻿using Infrastructure.Interfaces;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Core.Models;
+using Core.Interfaces;
 
 namespace API.Controllers
 {
@@ -18,10 +19,17 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<ActionResult<List<Product>>> GetProducts()
         {
             var products = await this._repository.GetProductsAsync();
             return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<Product>> GetProduct(int id)
+        {
+            return await this._repository.GetProductByIdAsync(id);
         }
     }
 }

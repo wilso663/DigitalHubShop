@@ -1,5 +1,5 @@
 ﻿using Infrastructure.Data;
-using Infrastructure.Interfaces;
+using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions
@@ -10,7 +10,7 @@ namespace API.Extensions
         {
             services.AddDbContext<StoreContext>(option =>
             {
-                option.UseSqlServer(config.GetConnectionString("DigitHubShopDBConnection"));
+                option.UseSqlServer(config.GetConnectionString("DigitalHubShopConnectionString"), b => b.MigrationsAssembly("Infrastructure"));
             });
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddCors();

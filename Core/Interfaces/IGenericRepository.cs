@@ -1,5 +1,5 @@
-﻿
-using Core.Models;
+﻿using Core.Models;
+using Core.Specifications;
 
 namespace Core.Interfaces
 {
@@ -7,5 +7,7 @@ namespace Core.Interfaces
     {
         Task<T> GetByIdAsync(int id);
         Task<IReadOnlyList<T>> ListAllAsync();
+        Task<T> GetEntityWithSpec(ISpecification<T> spec);
+        Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
     }
 }

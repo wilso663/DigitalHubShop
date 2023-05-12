@@ -13,6 +13,7 @@ namespace API.Extensions
                 option.UseSqlServer(config.GetConnectionString("DigitalHubShopConnectionString"), b => b.MigrationsAssembly("Infrastructure"));
             });
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddCors();
             services.AddEndpointsApiExplorer();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

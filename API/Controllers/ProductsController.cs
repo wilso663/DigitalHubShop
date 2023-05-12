@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Core.Models;
 using Core.Interfaces;
 using Core.Specifications;
+using API.DTOs;
 
 namespace API.Controllers
 {
@@ -27,19 +28,25 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetProducts()
+        public async Task<ActionResult<IReadOnlyList<ProductReturnDTO>>> GetProducts()
         {
             var spec = new ProductsWithTypesandBrandsSpecification();
             var products = await this._productsRepo.ListAsync(spec);
-            return Ok(products);
+            var productsDTO = _mapper.Map<IReadOnlyList<ProductReturnDTO>>(products);
+            return Ok(productsDTO);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductReturnDTO>> GetProduct(int id)
         {
             var spec = new ProductsWithTypesandBrandsSpecification(id);
-            return await this._productsRepo.GetEntityWithSpec(spec);
+            var product = await _productsRepo.GetEntityWithSpec(spec);
+            if (product == null)
+                return NotFound();
+
+            var productDTO = _mapper.Map<ProductReturnDTO>(product);
+            return Ok(productDTO);
         }
 
         [HttpGet]

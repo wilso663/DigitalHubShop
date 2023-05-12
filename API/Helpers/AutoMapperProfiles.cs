@@ -1,6 +1,7 @@
 ﻿using Infrastructure.DTOs;
 using Core.Models;
 using AutoMapper;
+using API.DTOs;
 
 namespace API.Helpers
 {
@@ -8,7 +9,9 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<Product, ProductReturnDTO>().
+                ForMember(dest => dest.ProductType, opt => opt.MapFrom(src => src.ProductType.Name)).
+                ForMember(dest => dest.ProductBrand, opt => opt.MapFrom(src => src.ProductBrand.Name));
         }
     }
 }

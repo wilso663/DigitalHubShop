@@ -65,7 +65,7 @@ namespace API.Controllers
         [Route("types")]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductTypes()
         {
-            return Ok(await this._productBrandRepo.ListAllAsync());
+            return Ok(await this._productTypeRepo.ListAllAsync());
         }
     }
 }

@@ -4,6 +4,7 @@ import { Pagination } from '../shared/models/pagination';
 import { Product } from '../shared/models/product';
 import { Brand } from '../shared/models/brand';
 import { Type } from '../shared/models/type';
+import { ShopParams } from '../shared/models/shopParams';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,15 @@ import { Type } from '../shared/models/type';
 export class ShopService {
 
   baseUrl = "https://localhost:7068/api";
+  shopParams = new ShopParams();
+
   constructor(private httpClient: HttpClient) { }
 
-  getProducts(brandId? : number, typeId?: number) {
+  getProducts(shopParams: ShopParams) {
     let params = new HttpParams();
-    if(brandId) params = params.append('brandId', brandId);
-    if(typeId) params = params.append('typeId', typeId);
-    
+    if(this.shopParams.brandId > 0) params = params.append('brandId', this.shopParams.brandId);
+    if(this.shopParams.typeId) params = params.append('typeId', this.shopParams.typeId);
+    if(this.shopParams.sort) params = params.append('sort', this.shopParams.sort);
     return this.httpClient.get<Pagination<Product[]>>(this.baseUrl + '/products', {params});
   }
 
@@ -28,4 +31,13 @@ export class ShopService {
   getTypes() {
     return this.httpClient.get<Type[]>(this.baseUrl + '/products/types');
   }
+
+  getShopParams() {
+    return this.shopParams;
+  }
+
+  setShopParams(params: ShopParams) {
+    this.shopParams = params;
+  }
+
 }

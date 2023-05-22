@@ -2,16 +2,18 @@
   <div class="row">
     <section class="col-3">
       <h5 class="text-warning ms-3">Sort</h5>
-      <select class="form-select mb-4">
-        <option selected>Alphabetical</option>
-        <option>Price: High to Low</option>
-        <option>Price: Low to High</option>
+      <select class="form-select mb-4" 
+        (change)="onSortSelected($event)"
+      >
+        <option *ngFor="let sort of sortOptions" [value]="sort.value">
+          {{sort.name}}
+        </option>
       </select>
       <h5 class="text-warning ms-3">Brands</h5>
       <ul class="list-group my-3" >
         <li class="list-group-item" 
           *ngFor="let brand of brands"
-          [class.active]="brand.id === brandIdSelected"
+          [class.active]="brand.id === shopParams.brandId"
           [value]="brand.id"
           (click)="onBrandSelected(brand.id)"
         >{{brand.name}}</li>
@@ -20,7 +22,7 @@
       <ul class="list-group my-3">
         <li class="list-group-item" 
           *ngFor="let type of types"
-          [class.active]="type.id == typeIdSelected"
+          [class.active]="type.id == shopParams.typeId"
           [value]="type.id"
           (click)="onTypeSelected(type.id)"
         >{{type.name}}</li>
@@ -37,10 +39,23 @@
           <button class="btn btn-outline-success">Reset</button>
         </div>
       </div>
-      <div class="row row-cols-3 g-3">
+      <div class="row row-cols-3 g-3 mb-4">
         <div class="col" *ngFor="let product of products">
           <product-item [product]="product"></product-item>
         </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination 
+          [boundaryLinks]="true" 
+          [totalItems]="totalCount"
+          [itemsPerPage]="shopParams.pageSize"
+          [maxSize]="10"
+          previousText="&lsaquo;" 
+          nextText="&rsaquo;" 
+          firstText="&laquo;" 
+          lastText="&raquo;">
+        
+        </pagination>
       </div>
     </section>
   </div>

@@ -74,4 +74,11 @@ export class ShopComponent implements OnInit {
     this.shopParams.sort = event.target.value;
     this.getProducts();
   }
+
+  onPageChanged(event: any){
+    if(this.shopParams.pageIndex !== event.page){
+      this.shopParams.pageIndex = event.page;
+      this.getProducts();
+    }
+  }
 }

@@ -20,7 +20,9 @@ export class ShopService {
     let params = new HttpParams();
     if(this.shopParams.brandId > 0) params = params.append('brandId', this.shopParams.brandId);
     if(this.shopParams.typeId) params = params.append('typeId', this.shopParams.typeId);
-    if(this.shopParams.sort) params = params.append('sort', this.shopParams.sort);
+    params = params.append('sort', this.shopParams.sort);
+    params = params.append('pageIndex', this.shopParams.pageIndex);
+    params = params.append('pageSize', this.shopParams.pageSize);
     return this.httpClient.get<Pagination<Product[]>>(this.baseUrl + '/products', {params});
   }
 

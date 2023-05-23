@@ -24,8 +24,12 @@ export class ShopService {
     params = params.append('pageIndex', this.shopParams.pageIndex);
     params = params.append('pageSize', this.shopParams.pageSize);
     if(this.shopParams.search) params = params.append('search', this.shopParams.search);
-    
+
     return this.httpClient.get<Pagination<Product[]>>(this.baseUrl + '/products', {params});
+  }
+
+  getProduct(id: number){
+    return this.httpClient.get<Product>(this.baseUrl + '/products/' + id);
   }
 
   getBrands() {

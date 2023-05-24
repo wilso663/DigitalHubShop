@@ -32,7 +32,8 @@
             "styles": [
               "src/styles.scss",
               "node_modules/bootswatch/dist/united/bootstrap.min.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/timer.css"
             ],
             "scripts": []
           },

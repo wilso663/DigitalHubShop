@@ -3,6 +3,8 @@ using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using API.Errors;
+using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 
 namespace API.Extensions
 {
@@ -17,7 +19,12 @@ namespace API.Extensions
             {
                 option.UseSqlServer(config.GetConnectionString("DigitalHubShopConnectionString"), b => b.MigrationsAssembly("Infrastructure"));
             });
-
+            services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var options = ConfigurationOptions.Parse(config.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(options);
+            });
+            services.AddScoped<IBasketRepository, BasketRepository>();  
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddCors(opt =>
             {

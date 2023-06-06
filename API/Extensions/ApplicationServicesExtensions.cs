@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using API.Errors;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
+using Infrastructure.Services;
 
 namespace API.Extensions
 {
@@ -26,6 +27,7 @@ namespace API.Extensions
             });
             services.AddScoped<IBasketRepository, BasketRepository>();  
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<ITokenService, TokenService>();
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>

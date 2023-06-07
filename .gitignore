@@ -7,6 +7,8 @@ API/appsettings.json
 .crt
 .key
 ssl/
+docker-compose.yml
+docker-compose.yml.rej
 # User-specific files
 *.rsuser
 *.suo

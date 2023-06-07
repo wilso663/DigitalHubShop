@@ -9,6 +9,7 @@
     id="floatingInput"
     placeholder="Email"
   />
+  <div *ngIf="control.status === 'PENDING'" class="fa fa-spinner fa-spin loader"></div>
   <label for="floatingInput">{{label}}</label>
   <div
     *ngIf="control.errors?.['required']"
@@ -22,6 +23,12 @@
   >
     Invalid email address
   </div>
+  <div
+  *ngIf="control.errors?.['emailExists']"
+  class="invalid-feedback"
+>
+  Email address is taken
+</div>
   <div
   *ngIf="control.errors?.['pattern']"
   class="invalid-feedback"

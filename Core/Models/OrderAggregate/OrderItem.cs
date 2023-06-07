@@ -1,4 +1,7 @@
-﻿namespace Core.Models.OrderAggregate
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Core.Models.OrderAggregate
 {
     public class OrderItem : BaseModel
     {
@@ -14,6 +17,7 @@
         }
 
         public ProductItemOrdered ItemOrdered { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public int Quantity { get; set; }
     }

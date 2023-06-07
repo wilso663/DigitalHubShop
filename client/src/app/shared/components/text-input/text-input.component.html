@@ -22,4 +22,10 @@
   >
     Invalid email address
   </div>
+  <div
+  *ngIf="control.errors?.['pattern']"
+  class="invalid-feedback"
+>
+  Password requires at least 1 lowercase, 1 uppercase, 1 special character, 1 number
+</div>
 </div>

@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Core.Models.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
@@ -8,7 +9,9 @@ namespace Infrastructure.Data
     {
         public static async Task SeedAsync(StoreContext context)
         {
-            if(!context.ProductBrands.Any())
+            //To turn identity insert allow for microsoft sql, use this command and then set it back to off when complete
+            // await context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [DigitalHubShopDB].[dbo].[Orders] ON;");
+            if (!context.ProductBrands.Any())
             {
                 var brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/brands.json");
                 var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
@@ -25,6 +28,13 @@ namespace Infrastructure.Data
                 var typesData = File.ReadAllText("../Infrastructure/Data/SeedData/types.json");
                 var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
                 context.ProductTypes.AddRange(types);
+            }
+            if (!context.DeliveryMethods.Any())
+            {
+
+                var deliveriesData = File.ReadAllText("../Infrastructure/Data/SeedData/delivery.json");
+                var deliveries = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveriesData);
+                context.DeliveryMethods.AddRange(deliveries);
             }
             if (context.ChangeTracker.HasChanges()) {
                 await context.SaveChangesAsync();
